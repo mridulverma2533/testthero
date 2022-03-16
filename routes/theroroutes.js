@@ -4,12 +4,12 @@ const auth = require("../middleware/auth").authCustomer
 const controller = require("../controller/therocontroller")
 
 
-router.post("/login",controller.signup)
+router.post("/loginuser",controller.signup)
 
-router.post("/saveuser" ,auth,controller.saveuser)
-router.get("/getuser",auth,controller.getuser)
-router.post("/savegamestate",auth,controller.addgamestate)
-router.get("/getgamestate",auth,controller.getgamestate)
+router.post("/adduser" ,auth,controller.saveuser)
+router.get("/getadduser",auth,controller.getuser)
+router.post("/addgamestate",auth,controller.addgamestate)
+router.get("/getaddgamestate",auth,controller.getgamestate)
 
 
 
