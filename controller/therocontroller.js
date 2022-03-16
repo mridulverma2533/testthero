@@ -13,7 +13,7 @@ exports.signup=async (req,res)=>{
          if(user){
             // const token = jwt.sign({ _id: user._id }, "this is my");
             const token = await jwt.sign({ _id: user._id },"this is my");
-            let socket = io.connect("http://localhost:5000")
+            let socket = io.connect("http://localhost:8000")
             // let socket =io()
             socket.emit('join',`user_${user._id}`)
             // console.log((socket));
@@ -29,7 +29,7 @@ exports.signup=async (req,res)=>{
         const token = await jwt.sign({ _id: user._id},"this is my" );
         // const token = jwt.sign({ _id: user._id }, "this is my");
         // let socket = io()
-        let socket = io.connect("http://localhost:5000")
+        let socket = io.connect("http://localhost:8000")
         socket.emit('join',`user_${user._id}`)
         // console.log(socket);
         res.status(200).json({result,token})
@@ -53,12 +53,12 @@ exports.saveuser = async (req,res)=>{
         // console.log(data)
         if(dat) {
             const gamedata = await saveuser.findOneAndUpdate({userId:user._id},{$set:{data}},{new:true})
-            let socket = io.connect("http://localhost:5000")
+            let socket = io.connect("http://localhost:8000")
             socket.emit('updated',gamedata)
             res.status(200).json(gamedata)
         }else{
             const result = await saveuser.create(temp)
-            let socket = io.connect("http://localhost:5000")
+            let socket = io.connect("http://localhost:8000")
             socket.emit('updated',result)
 
             res.status(200).json(result)
@@ -81,7 +81,7 @@ exports.getuser= async(req,res)=>{
         // res.send({_id:req.user._id})
         const  data = await saveuser.findOne({userId: user._id})
         if(data){
-            let socket = io.connect("http://localhost:5000")
+            let socket = io.connect("http://localhost:8000")
             socket.emit('userget',data)
             res.send(data)
         }else{
@@ -104,14 +104,14 @@ exports.addgamestate = async (req,res)=>{
         // console.log(data)
         if(data) {
             const gamedata = await game.findOneAndUpdate({userId:user._id},{$set:{gamestate}},{new:true})
-            let socket = io.connect("http://localhost:5000")
+            let socket = io.connect("http://localhost:8000")
             socket.emit('updatedstatus',gamedata)
             console.log(data);
 
             res.status(200).json(gamedata)
         }else{
             const result = await game.create(temp)
-            let socket = io.connect("http://localhost:5000")
+            let socket = io.connect("http://localhost:8000")
             socket.emit('updatedstatus',result)
             res.status(200).json(result)
             
@@ -141,7 +141,7 @@ exports.getgamestate = async (req,res)=>{
         // if(data){
           const data = await game.findOne({userId:user._id})
           if(data){
-            let socket = io.connect("http://localhost:5000")
+            let socket = io.connect("http://localhost:8000")
             socket.emit('usergamestate',data)
             res.send(data)
         }else{
